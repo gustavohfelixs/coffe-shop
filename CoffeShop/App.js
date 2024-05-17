@@ -312,7 +312,7 @@ export default function App() {
       <View
         style={{
           width: "100%",
-          backgroundColor: "red",
+          backgroundColor: "rgba(237,237,237, 35%)",
           height: "100%",
           top: 280,
         }}
