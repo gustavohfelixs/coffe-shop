@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -6,6 +6,10 @@ import {
   View,
   Image,
   TextInput,
+  StatusBar,
+  FlatList,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import OnboardImage from "./assets/onboard.png";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,9 +23,44 @@ import {
   Sora_400Regular,
 } from "@expo-google-fonts/dev";
 
+import Home from "./src/telas/Home";
+
 const mock = {
   banner: Banner,
 };
+
+const buttons = [
+  {
+    id: "1",
+    title: "All Coffes",
+    key: "all",
+  },
+  {
+    id: "2",
+    title: "Mocha",
+    key: "Mocha",
+  },
+  {
+    id: "3",
+    title: "Flat",
+    key: "Flat",
+  },
+  {
+    id: "4",
+    title: "All",
+    key: "al",
+  },
+  {
+    id: "5",
+    title: "Mocha",
+    key: "Moha",
+  },
+  {
+    id: "6",
+    title: "Flat",
+    key: "Flt",
+  },
+];
 
 const Stack = createNativeStackNavigator();
 
@@ -59,7 +98,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CoffeButton = ({ pressed }) => {
+const CoffeButton = ({ pressed, mock }) => {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -85,7 +124,7 @@ const CoffeButton = ({ pressed }) => {
           color: "#FFFF",
         }}
       >
-        All Coffe
+        {mock.title}
       </Text>
     </Pressable>
   );
@@ -93,6 +132,7 @@ const CoffeButton = ({ pressed }) => {
 
 const mockCoffe = [
   {
+    id: 1,
     name: "Caffe Mocha",
     description: "Deep Foam",
     price: 4.53,
@@ -100,6 +140,7 @@ const mockCoffe = [
     photo: require("./assets/mocha.png"),
   },
   {
+    id: 2,
     name: "Flat White",
     description: "Deep Foam",
     price: 3.53,
@@ -107,6 +148,7 @@ const mockCoffe = [
     photo: require("./assets/flat-white.png"),
   },
   {
+    id: 3,
     name: "Caffe Mocha",
     description: "Deep Foam",
     price: 4.53,
@@ -114,6 +156,7 @@ const mockCoffe = [
     photo: require("./assets/mocha.png"),
   },
   {
+    id: 4,
     name: "Flat White",
     description: "Deep Foam",
     price: 3.53,
@@ -130,6 +173,7 @@ const CoffeCard = ({ ...mockCoffe }) => {
         backgroundColor: "#FFF",
         borderRadius: 10,
       }}
+      elevation={2}
     >
       <View style={{ padding: 8, position: "absolute" }}>
         <Image
@@ -190,60 +234,6 @@ const CoffeCard = ({ ...mockCoffe }) => {
     </View>
   );
 };
-const SearchBar = ({ clicked, searchPhrase, setSearchPhrase, setClicked }) => {
-  return (
-    <View style={styles.container}>
-      <View
-        style={
-          clicked ? styles.searchBar__clicked : styles.searchBar__unclicked
-        }
-      >
-        {/* search Icon */}
-        <Feather
-          name="search"
-          size={20}
-          color="white"
-          style={{ marginLeft: 1 }}
-        />
-        {/* Input field */}
-        <TextInput
-          style={styles.input}
-          placeholder="Search coffee"
-          placeholderTextColor={"#A2A2A2"}
-          value={searchPhrase}
-          onChangeText={setSearchPhrase}
-          onFocus={() => {
-            setClicked(true);
-          }}
-        />
-        {/* cross Icon, depending on whether the search bar is clicked or not */}
-        {clicked && (
-          <Entypo
-            name="cross"
-            size={20}
-            color="black"
-            style={{ padding: 1 }}
-            onPress={() => {
-              setSearchPhrase("");
-            }}
-          />
-        )}
-      </View>
-      {/* cancel button, depending on whether the search bar is clicked or not */}
-      {clicked && (
-        <View>
-          <Button
-            title="Cancel"
-            onPress={() => {
-              Keyboard.dismiss();
-              setClicked(false);
-            }}
-          ></Button>
-        </View>
-      )}
-    </View>
-  );
-};
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -252,104 +242,9 @@ export default function App() {
   });
 
   return (
-    <View style={{ width: "100%", height: "100%" }}>
-      <View
-        style={{
-          width: "100%",
-          height: 280,
-          backgroundColor: "#313131",
-          left: 0,
-          right: 0,
-          position: "absolute",
-        }}
-      >
-        <Text
-          style={{
-            position: "relative",
-            top: 68,
-            left: 24,
-            color: "#A2A2A2",
-            fontFamily: "Sora_400Regular",
-            fontSize: 16,
-          }}
-        >
-          Location
-        </Text>
-
-        <View style={{ flexDirection: "row", top: 76, left: 24 }}>
-          <Text
-            style={{
-              fontFamily: "Sora_600SemiBold",
-              fontSize: 20,
-              color: "#D8D8D8",
-            }}
-          >
-            Brazil, Sao Paulo
-          </Text>
-          <AntDesign
-            name="down"
-            size={12}
-            color="white"
-            style={{ padding: 7 }}
-          />
-        </View>
-        <View style={{ position: "relative", top: 100, flexDirection: "row" }}>
-          <SearchBar></SearchBar>
-          <SimpleLineIcons
-            name="equalizer"
-            size={24}
-            color="white"
-            style={{
-              backgroundColor: "#C67C4E",
-              padding: 15,
-              borderRadius: 12,
-              alignSelf: "center",
-              transform: "rotate(90deg)",
-            }}
-          />
-        </View>
-      </View>
-      <View
-        style={{
-          width: "100%",
-          backgroundColor: "rgba(237,237,237, 35%)",
-          height: "100%",
-          top: 280,
-        }}
-      >
-        <View style={{ alignItems: "center", position: "relative", top: -40 }}>
-          <Image
-            source={require("./assets/Banner.png")}
-            style={{ width: 327, height: 140 }}
-          ></Image>
-        </View>
-        <View style={{ flexDirection: "row", top: -50, left: 24 }}>
-          <CoffeButton></CoffeButton>
-          <CoffeButton></CoffeButton>
-
-          <CoffeButton></CoffeButton>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "flex-start",
-            rowGap: 24,
-            columnGap: 15,
-            left: 24,
-            alignSelf: "center",
-          }}
-        >
-          {mockCoffe.map((coffe) => (
-            <CoffeCard {...coffe}></CoffeCard>
-          ))}
-        </View>
-      </View>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Home></Home>
     </View>
-    // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    //   <Text>Details Screen</Text>
-    // </View>
   );
 
   // export default SearchBar;
