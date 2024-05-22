@@ -24,6 +24,7 @@ import {
 } from "@expo-google-fonts/dev";
 
 import Home from "./src/telas/Home";
+import { NavigationContainer } from "@react-navigation/native";
 
 const mock = {
   banner: Banner,
@@ -63,40 +64,6 @@ const buttons = [
 ];
 
 const Stack = createNativeStackNavigator();
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flexDirection: "row",
-    width: 270,
-  },
-  searchBar__unclicked: {
-    padding: 15,
-    flexDirection: "row",
-    width: "95%",
-    backgroundColor: "#2A2A2A",
-    borderRadius: 15,
-    alignItems: "center",
-  },
-  searchBar__clicked: {
-    padding: 10,
-    flexDirection: "row",
-    width: "80%",
-    backgroundColor: "#2A2A2A",
-    borderRadius: 15,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-  },
-  input: {
-    fontSize: 18,
-    marginLeft: 10,
-    width: "90%",
-    fontFamily: "Sora_400Regular",
-    color: "#A2A2A2",
-  },
-});
 
 const CoffeButton = ({ pressed, mock }) => {
   return (
@@ -242,9 +209,20 @@ export default function App() {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Home></Home>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeScreen"
+          component={HomeScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Details"
+          component={DetailsScreen}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 
   // export default SearchBar;
@@ -271,14 +249,9 @@ export default function App() {
 
 function DetailsScreen() {
   return (
-    <View
-      style={{
-        width: 375,
-        height: "100%",
-        backgroundColor: "#313131",
-        margin: 0,
-      }}
-    ></View>
+    <View>
+      <Home></Home>
+    </View>
     // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
     //   <Text>Details Screen</Text>
     // </View>
@@ -336,41 +309,41 @@ function HomeScreen({ navigation }) {
   );
 }
 
-// const styles = StyleSheet.create({
-//   onboard_image: {
-//     width: "100%",
-//     height: 536,
-//     margin: 0,
-//     padding: 0,
-//     position: "absolute",
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//   },
-//   info_section: {
-//     zIndex: 100,
-//     position: "absolute",
-//     top: 485,
-//     paddingHorizontal: 24,
-//   },
-//   top_text: {
-//     textAlign: "center",
-//     color: "#FFFF",
-//     fontSize: 40,
-//     fontFamily: "Sora_600SemiBold",
-//   },
-//   subtitle: {
-//     color: "#A2A2A2",
-//     fontFamily: "Sora_400Regular",
-//     fontSize: 18,
-//     textAlign: "center",
-//     margin: 0,
-//     paddingTop: 8,
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
+const styles = StyleSheet.create({
+  onboard_image: {
+    width: "100%",
+    height: 536,
+    margin: 0,
+    padding: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  info_section: {
+    zIndex: 100,
+    position: "absolute",
+    top: 485,
+    paddingHorizontal: 24,
+  },
+  top_text: {
+    textAlign: "center",
+    color: "#FFFF",
+    fontSize: 40,
+    fontFamily: "Sora_600SemiBold",
+  },
+  subtitle: {
+    color: "#A2A2A2",
+    fontFamily: "Sora_400Regular",
+    fontSize: 18,
+    textAlign: "center",
+    margin: 0,
+    paddingTop: 8,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

@@ -6,12 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/onboard.png",
     "userInterfaceStyle": "light",
-    // "splash": {
-    //   "image": "./assets/splash-removebg-preview.png",
-    //   "resizeMode": "contain",
-    //   "backgroundColor": "#C67C4E"
-    // },
-    // "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "./assets/splash-removebg-preview.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#C67C4E"
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
