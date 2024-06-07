@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "CoffeShop",
+    "slug": "CoffeShop",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/onboard.png",
+    "userInterfaceStyle": "light",
+    // "splash": {
+    //   "image": "./assets/splash-removebg-preview.png",
+    //   "resizeMode": "contain",
+    //   "backgroundColor": "#C67C4E"
+    // },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-font"]
+  }
+}
